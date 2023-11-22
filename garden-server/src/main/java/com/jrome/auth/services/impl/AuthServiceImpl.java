@@ -6,6 +6,7 @@ import com.jrome.auth.payloads.LoginDTO;
 import com.jrome.auth.payloads.RegisterDTO;
 import com.jrome.auth.repositories.RoleRepository;
 import com.jrome.auth.repositories.UserRepository;
+import com.jrome.auth.security.JWTTokenProvider;
 import com.jrome.auth.services.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JWTTokenProvider jwtTokenProvider;
 
     @Override
     public String login(LoginDTO dto) {
@@ -35,7 +37,7 @@ public class AuthServiceImpl implements AuthService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return "Logged in successfully";
+        return jwtTokenProvider.generateJwtToken(authentication);
     }
 
     @Override

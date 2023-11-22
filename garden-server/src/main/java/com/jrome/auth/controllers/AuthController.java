@@ -1,5 +1,6 @@
 package com.jrome.auth.controllers;
 
+import com.jrome.auth.payloads.JWTAuthResponse;
 import com.jrome.auth.payloads.LoginDTO;
 import com.jrome.auth.payloads.RegisterDTO;
 import com.jrome.auth.services.AuthService;
@@ -18,9 +19,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDTO dto) {
-        String response = authService.login(dto);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<JWTAuthResponse> login(@RequestBody LoginDTO dto) {
+        String token = authService.login(dto);
+
+        JWTAuthResponse jwtAuthResponse = new JWTAuthResponse();
+        jwtAuthResponse.setAccessToken(token);
+        return ResponseEntity.ok(jwtAuthResponse);
     }
 
     @PostMapping("/register")

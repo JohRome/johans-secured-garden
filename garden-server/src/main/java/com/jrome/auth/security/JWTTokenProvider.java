@@ -64,7 +64,7 @@ public class JWTTokenProvider {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key())
                 .build()
-                .parseClaimsJwt(jwtToken)
+                .parseClaimsJws(jwtToken)
                 .getBody();
 
         return claims.getSubject();
@@ -76,7 +76,7 @@ public class JWTTokenProvider {
         Jwts.parserBuilder()
                 .setSigningKey(key())
                 .build()
-                .parse(toString());
+                .parse(jwtToken);
         return true;
         } catch (JwtException e) {
             throw new HttpStatusCodeException(HttpStatus.BAD_REQUEST, "Check your token, because it's faulty") {
