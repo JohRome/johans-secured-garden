@@ -1,6 +1,6 @@
-package com.jrome.repositories;
+package com.jrome.plant.repositories;
 
-import com.jrome.entities.Plant;
+import com.jrome.plant.entities.Plant;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

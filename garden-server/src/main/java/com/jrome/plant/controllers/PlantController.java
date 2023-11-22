@@ -1,9 +1,10 @@
-package com.jrome.controllers;
+package com.jrome.plant.controllers;
 
-import com.jrome.entities.Plant;
-import com.jrome.services.PlantService;
+import com.jrome.plant.entities.Plant;
+import com.jrome.plant.services.PlantService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Optional;
 @RequestMapping("api/v1/plants")
 @RequiredArgsConstructor
 public class PlantController {
+    //TODO: Return ResponseEntity<>
 
     private final PlantService plantService;
 
@@ -33,12 +35,14 @@ public class PlantController {
 
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public void updatePlant(@RequestBody Plant plant, @PathVariable Long id) {
         plantService.updatePlant(plant, id);
 
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void deletePlant(@PathVariable Long id) {
         plantService.deletePlantById(id);

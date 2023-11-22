@@ -1,7 +1,7 @@
-package com.jrome.services;
+package com.jrome.plant.services;
 
-import com.jrome.entities.Plant;
-import com.jrome.repositories.PlantRepository;
+import com.jrome.plant.entities.Plant;
+import com.jrome.plant.repositories.PlantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.jrome.entities;
+package com.jrome.plant.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
