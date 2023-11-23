@@ -1,6 +1,7 @@
 package com.jrome.plant.services;
 
 import com.jrome.plant.entities.Plant;
+import com.jrome.plant.exceptions.NoSuchPlantException;
 import com.jrome.plant.repositories.PlantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,9 +17,9 @@ public class PlantService {
 
     private final PlantRepository plantRepository;
 
-    public Optional<Plant> findPlantById(Long id) {
-        //TODO: If there are no plants in DB , don't return null value
-        return plantRepository.findById(id);
+    public Plant findPlantById(Long id) {
+        return plantRepository.findById(id)
+                .orElseThrow(() -> new NoSuchPlantException(String.format("Plant with id %d does not exist", id)));
     }
 
     public List<Plant> findAllPlants() {
@@ -32,7 +33,7 @@ public class PlantService {
 
     public void updatePlant(Plant plant, Long id) {
 
-
+        //TODO: Throw custom made exception
         if (!plantRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
@@ -43,6 +44,7 @@ public class PlantService {
 
     }
     public void deletePlantById(Long id) {
+        //TODO: Throw custom made exception
         plantRepository.deleteById(id);
     }
 }
