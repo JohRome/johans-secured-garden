@@ -17,10 +17,12 @@ public class PlantService {
     private final PlantRepository plantRepository;
 
     public Optional<Plant> findPlantById(Long id) {
+        //TODO: If there are no plants in DB , don't return null value
         return plantRepository.findById(id);
     }
 
     public List<Plant> findAllPlants() {
+        //TODO: If there are no plants in DB , don't return null value
         return plantRepository.findAll();
     }
 
@@ -29,6 +31,8 @@ public class PlantService {
     }
 
     public void updatePlant(Plant plant, Long id) {
+
+
         if (!plantRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 

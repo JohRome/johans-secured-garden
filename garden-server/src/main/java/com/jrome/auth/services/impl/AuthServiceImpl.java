@@ -32,6 +32,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String login(LoginDTO dto) {
+        //TODO: Maybe change the response if wrong credentials are used?
         var authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 dto.getUsernameOrEmail(), dto.getPassword()));
 
@@ -42,7 +43,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String register(RegisterDTO dto) {
-
+        //TODO: If the same user username or email exists, handle exceptions better
         if(userRepository.existsByUsername(dto.getUsername()))
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Username already exists");
 

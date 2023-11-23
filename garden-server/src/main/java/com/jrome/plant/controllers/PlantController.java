@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequestMapping("api/v1/plants")
 @RequiredArgsConstructor
 public class PlantController {
-    //TODO: Return ResponseEntity<>
+    //TODO: Return ResponseEntity<> and proper HttpResponses for all methods
 
     private final PlantService plantService;
 
@@ -38,13 +38,14 @@ public class PlantController {
     @PreAuthorize("hasRole('GARDEN_MASTER')")
     @PutMapping("/{id}")
     public void updatePlant(@RequestBody Plant plant, @PathVariable Long id) {
+        //TODO: If plant with id dosn't exists, dont return Unauthorized
         plantService.updatePlant(plant, id);
-
     }
 
     @PreAuthorize("hasRole('GARDEN_MASTER')")
     @DeleteMapping("/{id}")
     public void deletePlant(@PathVariable Long id) {
+        //TODO: If plant with id dosn't exists, dont return 200 OK
         plantService.deletePlantById(id);
     }
 }

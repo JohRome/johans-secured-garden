@@ -1,4 +1,4 @@
-package com.jrome.auth.security;
+package com.jrome.auth.services;
 
 import com.jrome.auth.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
