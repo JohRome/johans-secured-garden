@@ -49,19 +49,19 @@ public class AuthServiceImpl implements AuthService {
         if(userRepository.existsByEmail(dto.getEmail()))
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Email already exists");
 
-        var admin = new User();
-        admin.setName(dto.getName());
-        admin.setUsername(dto.getUsername());
-        admin.setEmail(dto.getEmail());
-        admin.setPassword(passwordEncoder.encode(dto.getPassword()));
+        var gardenMaster = new User();
+        gardenMaster.setName(dto.getName());
+        gardenMaster.setUsername(dto.getUsername());
+        gardenMaster.setEmail(dto.getEmail());
+        gardenMaster.setPassword(passwordEncoder.encode(dto.getPassword()));
 
         Set<Role> roles = new HashSet<>();
-        Role adminRole = roleRepository.findByName("ROLE_ADMIN").get();
-        roles.add(adminRole);
-        admin.setRoles(roles);
+        Role gardenMasterRole = roleRepository.findByName("ROLE_GARDEN_MASTER").get();
+        roles.add(gardenMasterRole);
+        gardenMaster.setRoles(roles);
 
-        userRepository.save(admin);
+        userRepository.save(gardenMaster);
 
-        return "Admin registered successfully!";
+        return "Garden Master registered successfully!";
     }
 }

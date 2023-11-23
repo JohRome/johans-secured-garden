@@ -38,7 +38,6 @@ public class PlantService {
         }
 
     }
-
     public void deletePlantById(Long id) {
         plantRepository.deleteById(id);
     }

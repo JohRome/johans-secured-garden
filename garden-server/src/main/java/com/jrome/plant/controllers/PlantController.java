@@ -35,14 +35,14 @@ public class PlantController {
 
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('GARDEN_MASTER')")
     @PutMapping("/{id}")
     public void updatePlant(@RequestBody Plant plant, @PathVariable Long id) {
         plantService.updatePlant(plant, id);
 
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('GARDEN_MASTER')")
     @DeleteMapping("/{id}")
     public void deletePlant(@PathVariable Long id) {
         plantService.deletePlantById(id);
