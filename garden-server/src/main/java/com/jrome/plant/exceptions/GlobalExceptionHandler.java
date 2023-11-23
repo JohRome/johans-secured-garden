@@ -11,8 +11,6 @@ import java.util.Date;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    private
-
     @ExceptionHandler(NoSuchPlantException.class) ResponseEntity<ErrorDetails> throwPlantNotFoundException(
             NoSuchPlantException e) {
 

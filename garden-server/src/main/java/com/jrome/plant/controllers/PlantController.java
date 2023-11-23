@@ -5,6 +5,7 @@ import com.jrome.plant.services.PlantService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,15 +21,20 @@ public class PlantController {
 
 
     //TODO: Return ResponseEntity<> and proper HttpResponses for all methods
+//    @GetMapping("/{id}")
+//    public Plant findPlantById(@PathVariable Long id) {
+//        return plantService.findPlantById(id);
+//    }
+
     @GetMapping("/{id}")
-    public Plant findPlantById(@PathVariable Long id) {
-        return plantService.findPlantById(id);
+    public ResponseEntity<Plant> findPlantById(@PathVariable Long id) {
+        return new ResponseEntity<>(plantService.findPlantById(id), HttpStatus.OK);
     }
 
     @GetMapping("/")
-    public List<Plant> findAllPlants() {
+    public ResponseEntity<List<Plant>> findAllPlants() {
         //TODO: If no plants are in DB, throw custom made exception
-        return plantService.findAllPlants();
+        return new ResponseEntity<>(plantService.findAllPlants(), HttpStatus.OK);
     }
 
     @PostMapping("/")

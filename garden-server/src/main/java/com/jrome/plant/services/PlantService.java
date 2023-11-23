@@ -4,13 +4,9 @@ import com.jrome.plant.entities.Plant;
 import com.jrome.plant.exceptions.NoSuchPlantException;
 import com.jrome.plant.repositories.PlantRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class PlantService {
@@ -18,33 +14,42 @@ public class PlantService {
     private final PlantRepository plantRepository;
 
     public Plant findPlantById(Long id) {
+        
         return plantRepository.findById(id)
                 .orElseThrow(() -> new NoSuchPlantException(String.format("Plant with id %d does not exist", id)));
     }
 
     public List<Plant> findAllPlants() {
-        //TODO: If there are no plants in DB , don't return null value
-        return plantRepository.findAll();
+
+        List<Plant> plants = plantRepository.findAll();
+
+        if (plants.isEmpty()) {
+            throw new NoSuchPlantException("It looks really empty in here... Plant a seed and try again");
+        }
+
+        return plants;
     }
 
     public void savePlant(Plant plant) {
+
         plantRepository.save(plant);
     }
 
     public void updatePlant(Plant plant, Long id) {
 
-        //TODO: Throw custom made exception
-        if (!plantRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        if (!plantRepository.existsById(id))
+            throw new NoSuchPlantException(String.format("Can't update plant with id: %d because there is none", id));
 
-        } else {
+         else {
             plant.setId(id);
             plantRepository.save(plant);
         }
-
     }
     public void deletePlantById(Long id) {
-        //TODO: Throw custom made exception
+
+        if (!plantRepository.existsById(id))
+            throw new NoSuchPlantException(String.format("Can't delete plant with id: %d because there is none", id));
+
         plantRepository.deleteById(id);
     }
 }
