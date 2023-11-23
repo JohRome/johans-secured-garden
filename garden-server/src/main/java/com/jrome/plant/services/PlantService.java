@@ -14,7 +14,7 @@ public class PlantService {
     private final PlantRepository plantRepository;
 
     public Plant findPlantById(Long id) {
-        
+
         return plantRepository.findById(id)
                 .orElseThrow(() -> new NoSuchPlantException(String.format("Plant with id %d does not exist", id)));
     }
@@ -30,19 +30,30 @@ public class PlantService {
         return plants;
     }
 
-    public void savePlant(Plant plant) {
+    public Plant savePlant(Plant plant) {
 
-        plantRepository.save(plant);
+        return plantRepository.save(plant);
     }
 
-    public void updatePlant(Plant plant, Long id) {
+//    public void updatePlant(Plant plant, Long id) {
+//
+//        if (!plantRepository.existsById(id))
+//            throw new NoSuchPlantException(String.format("Can't update plant with id: %d because there is none", id));
+//
+//         else {
+//            plant.setId(id);
+//            plantRepository.save(plant);
+//        }
+//    }
+
+    public Plant updatePlant(Plant plant, Long id) {
 
         if (!plantRepository.existsById(id))
             throw new NoSuchPlantException(String.format("Can't update plant with id: %d because there is none", id));
 
-         else {
+        else {
             plant.setId(id);
-            plantRepository.save(plant);
+            return plantRepository.save(plant);
         }
     }
     public void deletePlantById(Long id) {

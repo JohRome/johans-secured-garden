@@ -10,7 +10,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/plants")
@@ -19,40 +18,40 @@ public class PlantController {
 
     private final PlantService plantService;
 
-
-    //TODO: Return ResponseEntity<> and proper HttpResponses for all methods
-//    @GetMapping("/{id}")
-//    public Plant findPlantById(@PathVariable Long id) {
-//        return plantService.findPlantById(id);
-//    }
-
     @GetMapping("/{id}")
     public ResponseEntity<Plant> findPlantById(@PathVariable Long id) {
+
         return new ResponseEntity<>(plantService.findPlantById(id), HttpStatus.OK);
     }
 
     @GetMapping("/")
     public ResponseEntity<List<Plant>> findAllPlants() {
-        //TODO: If no plants are in DB, throw custom made exception
+
         return new ResponseEntity<>(plantService.findAllPlants(), HttpStatus.OK);
     }
 
     @PostMapping("/")
-    public void savePlant(@Valid @RequestBody Plant plant) {
-        plantService.savePlant(plant);
+    public ResponseEntity<Plant> savePlant(@Valid @RequestBody Plant plant) {
+
+        Plant createdPlant = plantService.savePlant(plant);
+
+        return new ResponseEntity<>(createdPlant, HttpStatus.CREATED);
     }
 
     @PreAuthorize("hasRole('GARDEN_MASTER')")
     @PutMapping("/{id}")
-    public void updatePlant(@RequestBody Plant plant, @PathVariable Long id) {
-        //TODO: If plant with id doesn't exists, dont return Unauthorized
-        plantService.updatePlant(plant, id);
+    public ResponseEntity<Plant> updatePlant(@RequestBody Plant plant, @PathVariable Long id) {
+
+        Plant updatedPlant = plantService.updatePlant(plant,id);
+
+        return new ResponseEntity<>(updatedPlant, HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('GARDEN_MASTER')")
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePlant(@PathVariable Long id) {
-        //TODO: If plant with id doesn't exists, dont return 200 OK
+
         plantService.deletePlantById(id);
     }
 }
