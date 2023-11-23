@@ -4,7 +4,6 @@ import com.jrome.auth.entities.Role;
 import com.jrome.auth.repositories.RoleRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component
