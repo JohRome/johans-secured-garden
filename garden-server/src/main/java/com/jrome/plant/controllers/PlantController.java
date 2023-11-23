@@ -42,7 +42,7 @@ public class PlantController {
     @PutMapping("/{id}")
     public ResponseEntity<Plant> updatePlant(@RequestBody Plant plant, @PathVariable Long id) {
 
-        Plant updatedPlant = plantService.updatePlant(plant,id);
+        Plant updatedPlant = plantService.updatePlant(plant, id);
 
         return new ResponseEntity<>(updatedPlant, HttpStatus.OK);
     }
