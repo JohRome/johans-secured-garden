@@ -6,6 +6,9 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+/**
+ * RoleInitializer's only purpose is to add the ROLE_GARDEN_MASTER to the MySQL Database
+ */
 @Component
 @RequiredArgsConstructor
 public class RoleInitializer {

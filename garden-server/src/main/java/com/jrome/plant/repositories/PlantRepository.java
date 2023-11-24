@@ -6,8 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Repository interface for accessing and managing plant entities in the database.
+ */
 @Repository
 public interface PlantRepository extends JpaRepository<Plant, Long> {
-
 
 }

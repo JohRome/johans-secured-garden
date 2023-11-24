@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller class for handling plant-related http-requests.
+ */
 @RestController
 @RequestMapping("api/v1/plants")
 @RequiredArgsConstructor
@@ -30,6 +33,7 @@ public class PlantController {
         return new ResponseEntity<>(plantService.findAllPlants(), HttpStatus.OK);
     }
 
+    // @Valid ensures that the requirements inside the Plant.class, aka @NotBlank, are met
     @PostMapping("/")
     public ResponseEntity<Plant> savePlant(@Valid @RequestBody Plant plant) {
 
@@ -38,6 +42,7 @@ public class PlantController {
         return new ResponseEntity<>(createdPlant, HttpStatus.CREATED);
     }
 
+    // Only ROLE_GARDEN_MASTER has authorization for PUT-request
     @PreAuthorize("hasRole('GARDEN_MASTER')")
     @PutMapping("/{id}")
     public ResponseEntity<Plant> updatePlant(@RequestBody Plant plant, @PathVariable Long id) {
@@ -47,11 +52,13 @@ public class PlantController {
         return new ResponseEntity<>(updatedPlant, HttpStatus.OK);
     }
 
+    // Only ROLE_GARDEN_MASTER has authorization for DELETE-request
     @PreAuthorize("hasRole('GARDEN_MASTER')")
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePlant(@PathVariable Long id) {
+    public ResponseEntity<String> deletePlant(@PathVariable Long id) {
 
         plantService.deletePlantById(id);
+
+        return ResponseEntity.ok(String.format("Plant with id %d is deleted", id));
     }
 }

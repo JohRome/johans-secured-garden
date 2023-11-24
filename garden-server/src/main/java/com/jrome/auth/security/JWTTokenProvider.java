@@ -14,6 +14,9 @@ import org.springframework.web.client.HttpStatusCodeException;
 import java.security.Key;
 import java.util.Date;
 
+/**
+ * Component responsible for generating, parsing, and validating JWT tokens.
+ */
 @Component
 public class JWTTokenProvider {
 
@@ -25,15 +28,19 @@ public class JWTTokenProvider {
     @Value("${app.jwt-expiration-milliseconds}")
     private long jwtExpirationDate;
 
-    // The method parameter takes the Authentication object that's made from
-    // the login() method inside the AuthServiceImpl.class
+
+    /**
+     * Generates a JWT token based on the provided authentication information.
+     *
+     * @param authentication The authentication object representing the user.
+     * @return The generated JWT token.
+     */
     public String generateJwtToken(Authentication authentication) {
         // The username or email that represents the authenticated user in the Authentication object
         String username = authentication.getName();
 
         Date currentDate = new Date();
 
-        // Sets the expiration date of the JWT-Token
         Date expireDate = new Date(currentDate.getTime() + jwtExpirationDate);
 
         // Builds the JWT-Token with the provided values and then returns it
@@ -49,14 +56,23 @@ public class JWTTokenProvider {
     }
 
 
-    // Returns a decoded secret key object from the application.properties file.
+    /**
+     * Returns a decoded secret key object from the application.properties file.
+     *
+     * @return The decoded secret key.
+     */
     private Key key() {
         return Keys.hmacShaKeyFor(
                 Decoders.BASE64.decode(jwtSecretKey)
         );
     }
 
-    // Extracts the username from a token
+    /**
+     * Extracts the username from a JWT token.
+     *
+     * @param jwtToken The JWT token.
+     * @return The username extracted from the token.
+     */
     public String getUsername(String jwtToken) {
 
         // Claims represents the user data
@@ -69,7 +85,13 @@ public class JWTTokenProvider {
         return claims.getSubject();
     }
 
-    // Validate the JWT-Token
+    /**
+     * Validates the provided JWT token.
+     *
+     * @param jwtToken The JWT token to validate.
+     * @return True if the token is valid, false otherwise.
+     * @throws HttpStatusCodeException If the token is invalid, a Bad Request status is thrown.
+     */
     public boolean validateJwtToken(String jwtToken) {
         try {
         Jwts.parserBuilder()

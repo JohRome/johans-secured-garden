@@ -20,6 +20,9 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Service implementation for handling authentication-related operations.
+ */
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -30,20 +33,16 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JWTTokenProvider jwtTokenProvider;
 
-    @Override
-    public String login(LoginDTO dto) {
-        //TODO: Maybe change the response if wrong credentials are used?
-        var authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                dto.getUsernameOrEmail(), dto.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        return jwtTokenProvider.generateJwtToken(authentication);
-    }
-
+    /**
+     * Registers a new user with the provided information.
+     *
+     * @param dto The RegisterDTO containing user registration details.
+     * @return A success message upon successful registration.
+     * @throws HttpClientErrorException If the username or email already exists.
+     */
     @Override
     public String register(RegisterDTO dto) {
-        //TODO: If the same user username or email exists, handle exceptions better
+
         if(userRepository.existsByUsername(dto.getUsername()))
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Username already exists");
 
@@ -56,6 +55,7 @@ public class AuthServiceImpl implements AuthService {
         gardenMaster.setEmail(dto.getEmail());
         gardenMaster.setPassword(passwordEncoder.encode(dto.getPassword()));
 
+        // The ROLE_GARDEN_MASTER is automatically set to a newly registered user
         Set<Role> roles = new HashSet<>();
         Role gardenMasterRole = roleRepository.findByName("ROLE_GARDEN_MASTER").get();
         roles.add(gardenMasterRole);
@@ -64,5 +64,22 @@ public class AuthServiceImpl implements AuthService {
         userRepository.save(gardenMaster);
 
         return "Garden Master registered successfully!";
+    }
+
+    /**
+     * Performs user login and generates a JWT token upon successful authentication.
+     *
+     * @param dto The LoginDTO containing user credentials.
+     * @return The generated JWT token.
+     */
+    @Override
+    public String login(LoginDTO dto) {
+
+        var authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                dto.getUsernameOrEmail(), dto.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return jwtTokenProvider.generateJwtToken(authentication);
     }
 }

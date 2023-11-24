@@ -7,6 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+/**
+ * Service class for handling plant-related business logic.
+ */
 @Service
 @RequiredArgsConstructor
 public class PlantService {
@@ -34,17 +38,6 @@ public class PlantService {
 
         return plantRepository.save(plant);
     }
-
-//    public void updatePlant(Plant plant, Long id) {
-//
-//        if (!plantRepository.existsById(id))
-//            throw new NoSuchPlantException(String.format("Can't update plant with id: %d because there is none", id));
-//
-//         else {
-//            plant.setId(id);
-//            plantRepository.save(plant);
-//        }
-//    }
 
     public Plant updatePlant(Plant plant, Long id) {
 

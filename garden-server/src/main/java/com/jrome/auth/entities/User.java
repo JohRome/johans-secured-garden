@@ -7,12 +7,16 @@ import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
+/**
+ * Entity class representing users in the application.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
+    //TODO: Extend UserDetails
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,7 +28,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    // When we load user entity it will also load its roles, thanks to EAGER
+    // If we load a user entity it will also load its roles, thanks to EAGER
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles",
     joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),

@@ -8,9 +8,18 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.Date;
 
+/**
+ * Global exception handler to handle specific exceptions across all controllers.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    /**
+     * Handles the NoSuchPlantException and returns a ResponseEntity with appropriate error details.
+     *
+     * @param e The NoSuchPlantException to be handled.
+     * @return ResponseEntity containing error details and HTTP status NOT_FOUND.
+     */
     @ExceptionHandler(NoSuchPlantException.class) ResponseEntity<ErrorDetails> throwPlantNotFoundException(
             NoSuchPlantException e) {
 

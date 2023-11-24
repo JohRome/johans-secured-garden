@@ -1,16 +1,11 @@
 package com.jrome.plant.exceptions;
 
-import lombok.Getter;
-import org.springframework.http.HttpStatus;
-//@Getter
+/**
+ * Custom exception class indicating that a plant was not found.
+ */
 public class NoSuchPlantException extends RuntimeException {
 
-//    HttpStatus status;
     public NoSuchPlantException(String message) {
         super(message);
     }
-//    public NoSuchPlantException(String message, HttpStatus status) {
-//        super(message);
-//        this.status = status;
-//    }
 }
