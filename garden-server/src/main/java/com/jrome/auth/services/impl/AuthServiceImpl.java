@@ -43,6 +43,8 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public String register(RegisterDTO dto) {
 
+        //TODO: Catch HttpClientErrorException instead
+        //TODO: Split this huge method into separate ones
         if(userRepository.existsByUsername(dto.getUsername()))
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Username already exists");
 
