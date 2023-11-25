@@ -4,6 +4,7 @@ import com.jrome.exceptions.NoSuchPlantException;
 import com.jrome.plant.entities.Plant;
 import com.jrome.plant.repositories.PlantRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PlantService {
 
     private final PlantRepository plantRepository;
@@ -21,6 +23,7 @@ public class PlantService {
 
         return plantRepository.findById(id)
                 .orElseThrow(() -> new NoSuchPlantException(String.format("Plant with id %d does not exist", id)));
+
     }
 
     public List<Plant> findAllPlants() {
@@ -49,6 +52,7 @@ public class PlantService {
             return plantRepository.save(plant);
         }
     }
+
     public void deletePlantById(Long id) {
 
         if (!plantRepository.existsById(id))

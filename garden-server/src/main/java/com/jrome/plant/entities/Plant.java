@@ -15,9 +15,12 @@ public class Plant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    // Name can't be empty
     @NotBlank
     private String name;
+    @Enumerated(value = EnumType.STRING)
+    @NotBlank
+    private PlantType type;
+    @NotBlank
+    private String color;
 
 }

@@ -70,7 +70,7 @@ public class AuthServiceImpl implements AuthService {
         return false;
     }
 
-    private Set<Role> setGardenMasterRole() {
+    public Set<Role> setGardenMasterRole() {
 
         Set<Role> roles = new HashSet<>();
         // The ROLE_GARDEN_MASTER is automatically set to a newly registered user by default
