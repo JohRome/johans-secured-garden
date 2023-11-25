@@ -1,71 +1,60 @@
 # Project name
++ Johans Secured Garden
 
 ## Description
 
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
++ The goal of this project was to create RESTful APIs so that a user can perform some requests as a non-authenticated user and some requests as an authenticated user.
++ One API is intended for registration and login, and the other APIs are intended for CRUD operations on a plant object.
 
-- What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn?
 
-## Table of Contents (Optional)
-
-If your README is long, add a table of contents to make it easy for users to find what they need.
+## Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Credits](#credits)
+- [Dependencies](#dependencies)
+- [Features](#features)
 - [License](#license)
+- [Tests](#tests)
 
 ## Installation
 
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
+Before running the program, make sure you have the following installed:
++ [Java 17](https://www.oracle.com/java/technologies/downloads/#java17)
++ [IntelliJ IDEA](https://www.jetbrains.com/idea/download/#section=windows)
++ [MySQL](https://dev.mysql.com/downloads/installer/) and follow the instructions.
++ Go to your MySQL Workbench and create a new schema called "botanical_garden".
++ Go to [application.properties](garden-server/src/main/resources/application.properties) and change the username and password to your MySQL username and password.
 
 ## Usage
 
-Provide instructions and examples for use. Include screenshots as needed.
-
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
-
-    ```md
-    ![alt text](assets/images/screenshot.png)
-    ```
+In order to run the project, open this project in IntelliJ IDEA and go to the garden-server module, right-click on "ServerApp" and click on Run 'ServerApp'.
+Wait for the server to start and then go down to [Tests](#tests) to test the API endpoints.
 
 ## Credits
 
-List your collaborators, if any, with links to their GitHub profiles.
-* [member 1](https://github.com/person1)
-* [member 2](https://github.com/person1)
++ [ChatGPT 3.5](https://chat.openai.com/) for clarification and documenting code.
++ [JavaGuide's paid Udemy course](https://www.udemy.com/course/building-real-time-rest-apis-with-spring-boot/?referralCode=6312172DF8B8C2C11F5E) for understanding and implementation of Spring Security's Authentication and Authorization.
++ [Postman](https://www.postman.com/) for documenting the API endpoints.
+
 
 ## Dependencies
-If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.
-* [junit jupiter 5](https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter/5.7.0)
 
-If you followed tutorials, include links to those here as well.
-
-## License
-
-The last section of a high-quality README file is the license. This lets other developers know what they can and cannot do with your project. If you need help choosing a license, refer to [MIT License](https://choosealicense.com/licenses/mit/).
-
----
-
-🏆 The previous sections are the bare minimum, and your project will ultimately determine the content of this document. You might also want to consider adding the following sections.
-
-## Badges
-
-![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
-
-Badges aren't necessary, per se, but they demonstrate street cred. Badges let other developers know that you know what you're doing. Check out the badges hosted by [shields.io](https://shields.io/). You may not understand what they all represent now, but you will in time.
+* [Spring Boot Dependencies](pom.xml)
+* [jjwt-impl](https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl)
+* [jjwt-api](https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api)
+* [jjwt-jackson](https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson)
 
 ## Features
 
-If your project has a lot of features, list them here.
-
-## How to Contribute
-
-If you created an application or package and would like other developers to contribute it, you can include guidelines for how to do so. The [Contributor Covenant](https://www.contributor-covenant.org/) is an industry standard, but you can always write your own if you'd prefer.
++ Register as a new Garden Master
++ Log in as a Garden Master to receive a JWT token
++ Add a new plant to the garden
++ View all plants in the garden
++ View a specific plant in the garden
++ Update a specific plant in the garden
++ Delete a specific plant in the garden
 
 ## Tests
 
-Go the extra mile and write tests for your application. Then provide examples on how to run them here.
++ For testing the API endpoints, visit this site: https://documenter.getpostman.com/view/29777299/2s9YeD9DMT
