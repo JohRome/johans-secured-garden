@@ -17,9 +17,6 @@ public class Plant {
     private Long id;
     @NotBlank
     private String name;
-    @Enumerated(value = EnumType.STRING)
-    @NotBlank
-    private PlantType type;
     @NotBlank
     private String color;
 
