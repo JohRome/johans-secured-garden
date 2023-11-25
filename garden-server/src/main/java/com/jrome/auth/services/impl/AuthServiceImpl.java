@@ -49,29 +49,44 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public String register(RegisterDTO dto) {
 
+        if (!isUserOrEmailExisting(dto)) {
+
+            var gardenMaster = createNewUser(dto);
+
+            // The ROLE_GARDEN_MASTER is automatically set to a newly registered user
+            Set<Role> gardenMasterRole = setGardenMasterRole();
+            gardenMaster.setRoles(gardenMasterRole);
+
+            userRepository.save(gardenMaster);
+        }
+        
+        return "Garden Master registered successfully!";
+    }
+
+    private boolean isUserOrEmailExisting(RegisterDTO dto) {
         if (userRepository.existsByUsername(dto.getUsername()))
             throw new UsernameAlreadyExistException(String.format("Username: %s already exist!", dto.getUsername()));
 
         if (userRepository.existsByEmail(dto.getEmail()))
             throw new EmailAlreadyExistException(String.format("Email: %s already exist!", dto.getEmail()));
+        return false;
+    }
 
+    private Set<Role> setGardenMasterRole() {
+        Set<Role> roles = new HashSet<>();
+        Role gardenMasterRole = roleRepository.findByName("ROLE_GARDEN_MASTER").get();
+        roles.add(gardenMasterRole);
+        return roles;
+    }
 
+    private User createNewUser(RegisterDTO dto) {
         var gardenMaster = new User();
         gardenMaster.setName(dto.getName());
         gardenMaster.setUsername(dto.getUsername());
         gardenMaster.setEmail(dto.getEmail());
         gardenMaster.setPassword(passwordEncoder.encode(dto.getPassword()));
 
-        // The ROLE_GARDEN_MASTER is automatically set to a newly registered user
-        Set<Role> roles = new HashSet<>();
-        Role gardenMasterRole = roleRepository.findByName("ROLE_GARDEN_MASTER").get();
-        roles.add(gardenMasterRole);
-        gardenMaster.setRoles(roles);
-
-        userRepository.save(gardenMaster);
-
-
-        return "Garden Master registered successfully!";
+        return gardenMaster;
     }
 
     /**
