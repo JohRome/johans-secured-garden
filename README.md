@@ -1,10 +1,10 @@
-# Project name
-+ Johans Secured Garden
+# Johans Secured Garden
 
 ## Description
 
 + The goal of this project was to create RESTful APIs so that a user can perform some requests as a non-authenticated user and some requests as an authenticated user.
-+ One API is intended for registration and login, and the other APIs are intended for CRUD operations on a plant object.
++ One API lets a user register as a new Garden Master and also login as a Garden Master to receive a JWT token. This JWT token is then used to authenticate the user for the PUT and DELETE requests.
++ One API lets a user perform CRUD operations on the plants in the garden.
 
 
 ## Table of Contents
@@ -22,7 +22,7 @@
 Before running the program, make sure you have the following installed:
 + [Java 17](https://www.oracle.com/java/technologies/downloads/#java17)
 + [IntelliJ IDEA](https://www.jetbrains.com/idea/download/#section=windows)
-+ [MySQL](https://dev.mysql.com/downloads/installer/) and follow the instructions.
++ [MySQL](https://dev.mysql.com/downloads/installer/)
 + Go to your MySQL Workbench and create a new schema called "botanical_garden".
 + Go to [application.properties](garden-server/src/main/resources/application.properties) and change the username and password to your MySQL username and password.
 
@@ -33,7 +33,7 @@ Wait for the server to start and then go down to [Tests](#tests) to test the API
 
 ## Credits
 
-+ [ChatGPT 3.5](https://chat.openai.com/) for clarification and documenting code.
++ [ChatGPT](https://chat.openai.com/) for clarification and documenting code.
 + [JavaGuide's paid Udemy course](https://www.udemy.com/course/building-real-time-rest-apis-with-spring-boot/?referralCode=6312172DF8B8C2C11F5E) for understanding and implementation of Spring Security's Authentication and Authorization.
 + [Postman](https://www.postman.com/) for documenting the API endpoints.
 
@@ -57,4 +57,4 @@ Wait for the server to start and then go down to [Tests](#tests) to test the API
 
 ## Tests
 
-+ For testing the API endpoints, visit this site: https://documenter.getpostman.com/view/29777299/2s9YeD9DMT
++ For testing the API endpoints, visit my published API documentation on: https://documenter.getpostman.com/view/29777299/2s9YeD9DMT
