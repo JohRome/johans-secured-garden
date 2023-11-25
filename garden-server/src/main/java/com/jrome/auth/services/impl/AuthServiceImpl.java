@@ -8,8 +8,13 @@ import com.jrome.auth.repositories.RoleRepository;
 import com.jrome.auth.repositories.UserRepository;
 import com.jrome.auth.security.JWTTokenProvider;
 import com.jrome.auth.services.AuthService;
+import com.jrome.exceptions.EmailAlreadyExistException;
+import com.jrome.exceptions.UsernameAlreadyExistException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.event.Level;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,6 +30,7 @@ import java.util.Set;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthServiceImpl implements AuthService {
 
     private final AuthenticationManager authenticationManager;
@@ -43,13 +49,12 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public String register(RegisterDTO dto) {
 
-        //TODO: Catch HttpClientErrorException instead
-        //TODO: Split this huge method into separate ones
-        if(userRepository.existsByUsername(dto.getUsername()))
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Username already exists");
+        if (userRepository.existsByUsername(dto.getUsername()))
+            throw new UsernameAlreadyExistException(String.format("Username: %s already exist!", dto.getUsername()));
 
-        if(userRepository.existsByEmail(dto.getEmail()))
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Email already exists");
+        if (userRepository.existsByEmail(dto.getEmail()))
+            throw new EmailAlreadyExistException(String.format("Email: %s already exist!", dto.getEmail()));
+
 
         var gardenMaster = new User();
         gardenMaster.setName(dto.getName());
@@ -64,6 +69,7 @@ public class AuthServiceImpl implements AuthService {
         gardenMaster.setRoles(roles);
 
         userRepository.save(gardenMaster);
+
 
         return "Garden Master registered successfully!";
     }

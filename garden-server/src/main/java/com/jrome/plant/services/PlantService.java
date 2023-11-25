@@ -1,7 +1,7 @@
 package com.jrome.plant.services;
 
 import com.jrome.plant.entities.Plant;
-import com.jrome.plant.exceptions.NoSuchPlantException;
+import com.jrome.exceptions.NoSuchPlantException;
 import com.jrome.plant.repositories.PlantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

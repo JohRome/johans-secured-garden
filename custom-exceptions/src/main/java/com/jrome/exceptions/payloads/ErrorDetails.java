@@ -1,4 +1,4 @@
-package com.jrome.plant.payloads;
+package com.jrome.exceptions.payloads;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

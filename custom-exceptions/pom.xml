@@ -9,7 +9,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>garden-server</artifactId>
+    <artifactId>custom-exceptions</artifactId>
     <packaging>jar</packaging>
 
     <properties>
@@ -17,13 +17,5 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.jrome</groupId>
-            <artifactId>custom-exceptions</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
 
 </project>

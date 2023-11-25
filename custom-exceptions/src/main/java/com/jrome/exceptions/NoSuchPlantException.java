@@ -1,4 +1,4 @@
-package com.jrome.plant.exceptions;
+package com.jrome.exceptions;
 
 /**
  * Custom exception class indicating that a plant was not found.
