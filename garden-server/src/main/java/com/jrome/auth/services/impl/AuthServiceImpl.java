@@ -12,9 +12,6 @@ import com.jrome.exceptions.EmailAlreadyExistException;
 import com.jrome.exceptions.UsernameAlreadyExistException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.event.Level;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -53,33 +50,38 @@ public class AuthServiceImpl implements AuthService {
 
             var gardenMaster = createNewUser(dto);
 
-            // The ROLE_GARDEN_MASTER is automatically set to a newly registered user
             Set<Role> gardenMasterRole = setGardenMasterRole();
             gardenMaster.setRoles(gardenMasterRole);
 
             userRepository.save(gardenMaster);
         }
-        
+
         return "Garden Master registered successfully!";
     }
 
     private boolean isUserOrEmailExisting(RegisterDTO dto) {
+
         if (userRepository.existsByUsername(dto.getUsername()))
             throw new UsernameAlreadyExistException(String.format("Username: %s already exist!", dto.getUsername()));
 
         if (userRepository.existsByEmail(dto.getEmail()))
             throw new EmailAlreadyExistException(String.format("Email: %s already exist!", dto.getEmail()));
+
         return false;
     }
 
     private Set<Role> setGardenMasterRole() {
+
         Set<Role> roles = new HashSet<>();
+        // The ROLE_GARDEN_MASTER is automatically set to a newly registered user by default
         Role gardenMasterRole = roleRepository.findByName("ROLE_GARDEN_MASTER").get();
         roles.add(gardenMasterRole);
+
         return roles;
     }
 
     private User createNewUser(RegisterDTO dto) {
+
         var gardenMaster = new User();
         gardenMaster.setName(dto.getName());
         gardenMaster.setUsername(dto.getUsername());

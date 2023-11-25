@@ -19,7 +19,6 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
-    //TODO: Extend UserDetails
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,6 +37,7 @@ public class User implements UserDetails {
     inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
 
+    // Custom implementation is done in CustomUserDetailsService.class
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
